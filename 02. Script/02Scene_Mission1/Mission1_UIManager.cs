@@ -33,15 +33,15 @@ public class Mission1_UIManager : MonoBehaviour
         narrationManager.narrationPanel.SetActive(true);
         narrationManager.ShowDialog();
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-           narrationManager.ShowNarration("첫 번째 미션입니다.", 1f));
+           narrationManager.ShowNarration("첫 번째 미션입니다.",StringKeys.EN_MISSION1_0));
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-           narrationManager.ShowNarration("반짝이는 단어들 중에서'애플(apple)'을 찾아주세요!", 1f));
+           narrationManager.ShowNarration("반짝이는 단어들 중에서'사과'를 찾아주세요!", StringKeys.EN_MISSION1_1));
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-           narrationManager.ShowNarration("찾았다면, 살짝 터치해 보세요!", 1f));
+           narrationManager.ShowNarration("찾았다면, 살짝 터치해 보세요!", StringKeys.EN_MISSION1_2));
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-           narrationManager.ShowNarration("그럼, 준비됐나요?", 1f));
+           narrationManager.ShowNarration("그럼, 준비됐나요?", StringKeys.EN_MISSION1_3));
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-           narrationManager.ShowNarration("영어 모험을 시작합니다!", 1f));
+           narrationManager.ShowNarration("영어 모험을 시작합니다!", StringKeys.EN_MISSION1_4));
         Mission1WordGroup.SetActive(true);
         narrationManager.HideDialog();
         narrationManager.narrationPanel.SetActive(false);
@@ -82,24 +82,24 @@ public class Mission1_UIManager : MonoBehaviour
         {
             Debug.Log("CorrectAnswer_Tutorial");
             yield return CoroutineRunner.instance.RunAndWait("Correct",
-               narrationManager.ShowNarration("정답입니다!", 1f));
+               narrationManager.ShowNarration("정답입니다!",StringKeys.EN_ANSWER_0));
             yield return CoroutineRunner.instance.RunAndWait("Correct",
                narrationManager.ShowNarration(StringUtil.KoreanParticle($"{Mission1_GameManager.instance.answer_en} {Mission1_GameManager.instance.answer_kr}을/를 정확하게 찾았어요!"), 1f));
             yield return CoroutineRunner.instance.RunAndWait("Correct",
-              narrationManager.ShowNarration($"참 잘했어요!", 1f));
+              narrationManager.ShowNarration($"참 잘했어요!", StringKeys.EN_ANSWER_1));
             yield return CoroutineRunner.instance.RunAndWait("Correct",
-            narrationManager.ShowNarration($"이런식으로 단어를 찾아보세요!", 1f));
+            narrationManager.ShowNarration($"이런식으로 단어를 찾아보세요!", StringKeys.EN_ANSWER_2));
             Mission1_GameManager.instance.tutorial = false;
         }
         else
         {
             Debug.Log("CorrectAnswer_Quiz");
             yield return CoroutineRunner.instance.RunAndWait("Correct",
-            narrationManager.ShowNarration("정답입니다!", 1f));
+                narrationManager.ShowNarration("정답입니다!", StringKeys.EN_ANSWER_0));
             yield return CoroutineRunner.instance.RunAndWait("Correct",
                narrationManager.ShowNarration(StringUtil.KoreanParticle($"{answer_kr}을/를 정확하게 찾았어요!"), 1f));
             yield return CoroutineRunner.instance.RunAndWait("Correct",
-              narrationManager.ShowNarration($"참 잘했어요!", 1f));
+              narrationManager.ShowNarration($"참 잘했어요!", StringKeys.EN_ANSWER_1));
             Mission1_GameManager.instance.clear = true; //정답을 맞췄다.
         }
         narrationManager.HideDialog();
@@ -111,9 +111,9 @@ public class Mission1_UIManager : MonoBehaviour
         Mission1_GameManager.instance.npcController.SetAnimatorTrigger("Fail");
         narrationManager.ShowDialog();
         yield return CoroutineRunner.instance.RunAndWait("Correct",
-        narrationManager.ShowNarration(StringUtil.KoreanParticle($"아쉽지만, 그건 {answer_kr}이/가 아니에요."),1f));
+        narrationManager.ShowNarration(StringUtil.KoreanParticle($"아쉽지만, 그건 {answer_kr}이/가 아니에요."),StringKeys.EN_ANSWER_4));
         yield return CoroutineRunner.instance.RunAndWait("Correct",
-           narrationManager.ShowNarration($"다시 한 번 잘 찾아볼까요 ?", 1f));
+           narrationManager.ShowNarration($"다시 한 번 잘 찾아볼까요 ?", StringKeys.EN_ANSWER_3));
         narrationManager.HideDialog();
         yield return null;
 
@@ -123,12 +123,12 @@ public class Mission1_UIManager : MonoBehaviour
         narrationManager.ShowDialog();
         Mission1_GameManager.instance.npcController.SetAnimatorTrigger("Jump");
         yield return CoroutineRunner.instance.RunAndWait("FinishMission",
-        narrationManager.ShowNarration($"멋져요! 첫 번째 미션을 성공했습니다!", 1f));
+        narrationManager.ShowNarration($"멋져요! 첫 번째 미션을 성공했습니다!", StringKeys.EN_MISSION1_5));
         yield return CoroutineRunner.instance.RunAndWait("FinishMission",
-           narrationManager.ShowNarration($"이제 더 신나는 모험이 기다리고 있어요.", 1f));
+           narrationManager.ShowNarration($"이제 더 신나는 모험이 기다리고 있어요.", StringKeys.EN_MISSION1_6));
         Mission1_GameManager.instance.npcController.SetAnimatorTrigger("Clear");
         yield return CoroutineRunner.instance.RunAndWait("FinishMission",
-        narrationManager.ShowNarration($"다음 미션으로 출발!", 1f));
+        narrationManager.ShowNarration($"다음 미션으로 출발!", StringKeys.EN_MISSION1_7));
         narrationManager.HideDialog();
         Mission1_GameManager.instance.nextMission = true;
         yield return null;

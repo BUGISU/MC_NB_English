@@ -112,12 +112,10 @@ public class Introduction_UIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         npcController.SetAnimatorTrigger("HI");
-
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-            narrationManager.ShowNarration("안녕하세요, 모험가님!", 1f), 5f);
-
+            narrationManager.ShowNarration("안녕하세요, 모험가님!", StringKeys.EN_INTRO_0), 5f);
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-            narrationManager.ShowNarration("지금부터 영어 마법 세계로 함께 떠나볼까요?", 1f), 5f);
+            narrationManager.ShowNarration("지금부터 영어 마법 세계로 함께 떠나볼까요?", StringKeys.EN_INTRO_1), 5f);
 
         narrationManager.narrationPanel.SetActive(false);
         npcController.HideNpcCharacter();

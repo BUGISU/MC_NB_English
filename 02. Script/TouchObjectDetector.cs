@@ -97,9 +97,7 @@ public class TouchObjectDetector : MonoBehaviour
             }
             else if (sceneName == "Mission2")
             {
-
                 Mission2_Detect(hit, screenPosition);
-
             }
         }
         else

@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("오디오 소스")]
     [SerializeField] private AudioSource bgmSource;
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] public AudioSource sfxSource;
 
     [Header("볼륨 조절")]
     [Range(0f, 1f)] public float bgmVolume = 1f;
@@ -16,6 +16,8 @@ public class SoundManager : MonoBehaviour
     [Header("Audio Clip List")]
     public AudioClip[] bgmClips;
     public AudioClip[] sfxClips;
+    public AudioClip[] narrationClips;
+
 
     private void Awake()
     {
@@ -103,6 +105,20 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlayNarration(string clipName)
+    {
+        sfxSource.Stop();
+        AudioClip clip = FindClipByName(narrationClips, clipName);
+        if (clip != null)
+        {
+            PlaySFX(clip);
+        }
+        else
+        {
+            Debug.LogWarning($"[SoundManager] SFX Clip '{clipName}' not found!");
+        }
+    }
+
     // =============================
     // 전부 정지
     // =============================
@@ -111,7 +127,10 @@ public class SoundManager : MonoBehaviour
         bgmSource.Stop();
         sfxSource.Stop();
     }
-
+    public void StopSFX()
+    {
+        sfxSource.Stop();
+    }
     // =============================
     // 클립 이름으로 검색
     // =============================
@@ -126,4 +145,9 @@ public class SoundManager : MonoBehaviour
         }
         return null;
     }
+    public AudioClip GetNarrationClipByName(string clipName)
+    {
+        return FindClipByName(narrationClips, clipName);
+    }
+
 }

@@ -77,5 +77,6 @@ public class CoroutineRunner : MonoBehaviour
         }
 
         corutineRunning = false;
+        SoundManager.instance?.StopSFX();  // 또는 .StopSFX() 도 가능
     }
 }

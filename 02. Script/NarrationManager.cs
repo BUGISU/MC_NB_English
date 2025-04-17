@@ -84,4 +84,32 @@ public class NarrationManager : MonoBehaviour
 
         yield return new WaitUntil(() => isTyping == false);
     }
+    public IEnumerator ShowNarration(string text, string clipName)
+    {
+        isTyping = true;
+        DOTween.Kill(narrationText); // 기존 애니메이션 중단
+        narrationText.text = "";
+
+        // 클립 찾기
+        AudioClip clip = SoundManager.instance != null
+            ? SoundManager.instance.GetNarrationClipByName(clipName)
+            : null;
+
+        float duration = clip != null ? clip.length : 3f; // 기본값 3초
+
+        // 나레이션 재생
+        SoundManager.instance.PlayNarration(clipName);
+
+        // 텍스트 애니메이션
+        narrationText.DOText(text, duration)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                isTyping = false;
+                narrationIndex += 1;
+            });
+
+        yield return new WaitUntil(() => isTyping == false);
+    }
+
 }

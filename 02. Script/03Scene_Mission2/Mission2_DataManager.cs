@@ -161,7 +161,6 @@ public class Mission2_DataManager : MonoBehaviour
             int randomIndex = Random.Range(i, n);
             (shuffledList[i], shuffledList[randomIndex]) = (shuffledList[randomIndex], shuffledList[i]);
         }
-
         return shuffledList;
     }
 
