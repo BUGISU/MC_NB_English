@@ -56,7 +56,7 @@ public class Mission1_UIManager : MonoBehaviour
         narrationManager.ShowDialog();
         Mission1Title.GetComponent<TextMeshProUGUI>().text = $"미션 1, 사과를 찾아라!";
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-           narrationManager.ShowNarration(StringUtil.KoreanParticle("사과를 뜻하는 단어, '애플(Apple)'를 찾아보세요!"), 1f));
+           narrationManager.ShowNarration(StringUtil.KoreanParticle("사과를 뜻하는 단어, '애플(Apple)'를 찾아보세요!"), StringKeys.EN_ANSWER_12));
         Mission1WordGroup.SetActive(true);
         narrationManager.HideDialog();
         yield return null;
@@ -66,7 +66,7 @@ public class Mission1_UIManager : MonoBehaviour
         //Debug.Log("FindWord");
         narrationManager.ShowDialog();
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-           narrationManager.ShowNarration(StringUtil.KoreanParticle($"{answer_kr}을/를 뜻하는 단어, {answer_en}를 찾아보세요!"), 1f));
+           narrationManager.ShowNarration(StringUtil.KoreanParticle($"{answer_kr}을/를 뜻하는 단어, {answer_en}를 찾아보세요!"),StringKeys.EN_ANSWER_12));
         Mission1Title.GetComponent<TextMeshProUGUI>().text = StringUtil.KoreanParticle($"미션 {QuizNum}, {answer_kr}을/를 찾아라!");
         Mission1WordGroup.SetActive(true);
         narrationManager.HideDialog();
@@ -97,7 +97,7 @@ public class Mission1_UIManager : MonoBehaviour
             yield return CoroutineRunner.instance.RunAndWait("Correct",
                 narrationManager.ShowNarration("정답입니다!", StringKeys.EN_ANSWER_0));
             yield return CoroutineRunner.instance.RunAndWait("Correct",
-               narrationManager.ShowNarration(StringUtil.KoreanParticle($"{answer_kr}을/를 정확하게 찾았어요!"), 1f));
+               narrationManager.ShowNarration(StringUtil.KoreanParticle($"{answer_kr}을/를 정확하게 찾았어요!"), StringKeys.EN_ANSWER_11));
             yield return CoroutineRunner.instance.RunAndWait("Correct",
               narrationManager.ShowNarration($"참 잘했어요!", StringKeys.EN_ANSWER_1));
             Mission1_GameManager.instance.clear = true; //정답을 맞췄다.

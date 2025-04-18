@@ -16,6 +16,8 @@ public static class StringKeys
     public const string EN_ANSWER_8= "audio_8_Let's think about the audio_";
     public const string EN_ANSWER_9= "audio_9_Great_job_Today_English_Magic_Adventure_Learned_Nice_Words and Sentences_";
     public const string EN_ANSWER_10= "audio_10_See you again in the next_adventure._";
+    public const string EN_ANSWER_11= "audio_11_I found the right word!";
+    public const string EN_ANSWER_12= "audio_12_Find the English word that the following word means!";
 
     //EN_Intro_Voice
     public const string EN_INTRO_0 = "audio_0_Hello_Adventurer_nim_";

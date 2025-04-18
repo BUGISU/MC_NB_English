@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
     [Header("오디오 소스")]
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] public AudioSource sfxSource;
-
+    [SerializeField] private AudioSource voiceSource;
     [Header("볼륨 조절")]
     [Range(0f, 1f)] public float bgmVolume = 1f;
     [Range(0f, 1f)] public float sfxVolume = 1f;
@@ -38,6 +38,9 @@ public class SoundManager : MonoBehaviour
 
         if (sfxSource != null)
             sfxSource.volume = sfxVolume;
+
+        if (voiceSource != null)
+            voiceSource.volume = sfxVolume;
     }
 
     // =============================
@@ -104,10 +107,33 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning($"[SoundManager] SFX Clip '{clipName}' not found!");
         }
     }
+    public void PlayVOICE(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("[SoundManager] SFX Clip is null!");
+            return;
+        }
 
+        sfxSource.PlayOneShot(clip, sfxVolume);
+    }
+
+    public void PlayVOICE(string clipName)
+    {
+        AudioClip clip = FindClipByName(sfxClips, clipName);
+
+        if (clip != null)
+        {
+            PlayVOICE(clip);
+        }
+        else
+        {
+            Debug.LogWarning($"[SoundManager] VOICE Clip '{clipName}' not found!");
+        }
+    }
     public void PlayNarration(string clipName)
     {
-        sfxSource.Stop();
+        voiceSource.Stop();
         AudioClip clip = FindClipByName(narrationClips, clipName);
         if (clip != null)
         {
