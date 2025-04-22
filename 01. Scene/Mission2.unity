@@ -4277,6 +4277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mission2_DataManager: {fileID: 440571408}
   mission2_UIManager: {fileID: 440571409}
+  narrationManager: {fileID: 625105072}
   tutorial: 0
   clear: 0
   currentAnswer: 

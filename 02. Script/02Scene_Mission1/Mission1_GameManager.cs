@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Permissions;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +10,8 @@ using UnityEngine.SceneManagement;
 public class Mission1_GameManager : MonoBehaviour
 {
     public static Mission1_GameManager instance { get; private set; }
-   
+    [SerializeField] private NarrationManager narrationManager;
+
     [SerializeField] Mission1_UIManager mission1_UIManager;
     [SerializeField] Mission1_DataManager mission1_DataManager;
     public NPCController npcController;
@@ -70,7 +72,9 @@ public class Mission1_GameManager : MonoBehaviour
         while (mission1_DataManager.QuizCount < mission1_DataManager.word_list_en.Length-1)
         {
             mission1_DataManager.NextQuize_SetData();
-            StartCoroutine(mission1_UIManager._FindWord(answer_en, answer_kr, mission1_DataManager.QuizCount+1));
+            SoundManager.instance.PlayNarration(StringKeys.EN_ANSWER_12);
+            mission1_UIManager.Mission1Title.GetComponent<TextMeshProUGUI>().text = StringUtil.KoreanParticle($"미션 {mission1_DataManager.QuizCount}, {answer_kr}을/를 찾아라!");
+            //StartCoroutine(mission1_UIManager._FindWord(answer_en, answer_kr, mission1_DataManager.QuizCount+1));
             yield return new WaitUntil(() => clear == true);
             clear = false;
         }
@@ -86,14 +90,35 @@ public class Mission1_GameManager : MonoBehaviour
     }
     IEnumerator _OnCorrectAnswer(string answer_en, string answer_kr)
     {
-        StartCoroutine(mission1_UIManager._CorrectAnswer(answer_en, answer_kr));
-        yield return null;
+        if (answer_en.Equals("Apple") && tutorial)
+        {
+            StartCoroutine(mission1_UIManager._CorrectAnswer(answer_en, answer_kr));
+        }
+        else
+        {
+            SoundManager.instance.PlaySFX("success01");
+            npcController.SetAnimatorTrigger("Correct");
+            yield return CoroutineRunner.instance.RunAndWait("Correct",
+            narrationManager.ShowNarration("정답입니다!", StringKeys.EN_ANSWER_0));
+            clear = true; //정답을 맞췄다.
+        }
+            yield return null;
     }
 
     IEnumerator _OnWrongAnswer(string answer_en, string answer_kr)
     {
-        
-        StartCoroutine(mission1_UIManager._WrongAnswer(answer_en, answer_kr));
+        if (answer_en.Equals("Apple") && tutorial)
+        {
+            StartCoroutine(mission1_UIManager._WrongAnswer(answer_en, answer_kr));
+        }
+        else
+        {
+            Mission1_GameManager.instance.npcController.SetAnimatorTrigger("Fail");
+            SoundManager.instance.PlaySFX("wrong01");
+            yield return CoroutineRunner.instance.RunAndWait("Correct",
+                   narrationManager.ShowNarration(StringUtil.KoreanParticle($"아쉽지만, 그건 {answer_kr}이/가 아니에요."), StringKeys.EN_ANSWER_4));
+        }
+         
         yield return null;
     }
   

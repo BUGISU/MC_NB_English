@@ -42,7 +42,12 @@ public class SoundManager : MonoBehaviour
         if (voiceSource != null)
             voiceSource.volume = sfxVolume;
     }
-
+    public void SaveVolumeSettings()
+    {
+        PlayerPrefs.SetFloat("BGM_VOLUME", bgmVolume);
+        PlayerPrefs.SetFloat("SFX_VOLUME", sfxVolume);
+        PlayerPrefs.Save();
+    }
     // =============================
     // BGM Àç»ý
     // =============================
@@ -115,7 +120,7 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        sfxSource.PlayOneShot(clip, sfxVolume);
+        voiceSource.PlayOneShot(clip, sfxVolume);
     }
 
     public void PlayVOICE(string clipName)
@@ -137,7 +142,7 @@ public class SoundManager : MonoBehaviour
         AudioClip clip = FindClipByName(narrationClips, clipName);
         if (clip != null)
         {
-            PlaySFX(clip);
+            PlayVOICE(clip);
         }
         else
         {

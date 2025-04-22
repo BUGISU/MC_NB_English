@@ -103,13 +103,13 @@ public class Mission2_UIManager : MonoBehaviour
             narrationManager.ShowNarration($"이런식으로 멋진 문장을 만들어봐요!", StringKeys.EN_ANSWER_6));
             Mission2_GameManager.instance.tutorial = false;
         }
-        else
-        {
-            yield return CoroutineRunner.instance.RunAndWait("Correct",
-            narrationManager.ShowNarration("정답입니다!", StringKeys.EN_ANSWER_0));
-            yield return CoroutineRunner.instance.RunAndWait("Correct",
-            narrationManager.ShowNarration($"완벽한 문장이 되었어요!",StringKeys.EN_ANSWER_5));
-        }
+        //else
+        //{
+        //    yield return CoroutineRunner.instance.RunAndWait("Correct",
+        //    narrationManager.ShowNarration("정답입니다!", StringKeys.EN_ANSWER_0));
+        //    yield return CoroutineRunner.instance.RunAndWait("Correct",
+        //    narrationManager.ShowNarration($"완벽한 문장이 되었어요!",StringKeys.EN_ANSWER_5));
+        //}
         narrationManager.HideDialog();
         Mission2_GameManager.instance.clear = true;
         yield return null;

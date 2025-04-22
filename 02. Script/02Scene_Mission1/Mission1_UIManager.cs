@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 
@@ -17,14 +19,21 @@ public class Mission1_UIManager : MonoBehaviour
 
     [Header("Private Mission1-Object")]
     [SerializeField] private GameObject Mission1WordGroup;
-    [SerializeField] private GameObject Mission1Title;
+    public GameObject Mission1Title;
 
     private Vector3 moveToPos;     // 이동할 위치
     private Vector3 scaleToSize;   // 최종 크기
 
+    [SerializeField] private Button NextButton; // 다음 버튼
     [SerializeField] private float duration = 1.5f; // 애니메이션 시간
 
-
+    void Awake()
+    {
+        NextButton.onClick.AddListener(() =>
+        {
+          SceneManager.LoadScene("Mission2");
+        });
+    }
     public IEnumerator _Mission1_Start()
     {
         Mission1Title.SetActive(true);
@@ -56,7 +65,7 @@ public class Mission1_UIManager : MonoBehaviour
         narrationManager.ShowDialog();
         Mission1Title.GetComponent<TextMeshProUGUI>().text = $"미션 1, 사과를 찾아라!";
         yield return CoroutineRunner.instance.RunAndWait("mission1_cut1",
-           narrationManager.ShowNarration(StringUtil.KoreanParticle("사과를 뜻하는 단어, '애플(Apple)'를 찾아보세요!"), StringKeys.EN_ANSWER_12));
+           narrationManager.ShowNarration(StringUtil.KoreanParticle("사과를 뜻하는 단어를 찾아보세요!"), StringKeys.EN_ANSWER_12));
         Mission1WordGroup.SetActive(true);
         narrationManager.HideDialog();
         yield return null;
@@ -91,17 +100,17 @@ public class Mission1_UIManager : MonoBehaviour
             narrationManager.ShowNarration($"이런식으로 단어를 찾아보세요!", StringKeys.EN_ANSWER_2));
             Mission1_GameManager.instance.tutorial = false;
         }
-        else
-        {
-            Debug.Log("CorrectAnswer_Quiz");
-            yield return CoroutineRunner.instance.RunAndWait("Correct",
-                narrationManager.ShowNarration("정답입니다!", StringKeys.EN_ANSWER_0));
-            yield return CoroutineRunner.instance.RunAndWait("Correct",
-               narrationManager.ShowNarration(StringUtil.KoreanParticle($"{answer_kr}을/를 정확하게 찾았어요!"), StringKeys.EN_ANSWER_11));
-            yield return CoroutineRunner.instance.RunAndWait("Correct",
-              narrationManager.ShowNarration($"참 잘했어요!", StringKeys.EN_ANSWER_1));
-            Mission1_GameManager.instance.clear = true; //정답을 맞췄다.
-        }
+        //else
+        //{
+        //    Debug.Log("CorrectAnswer_Quiz");
+        //    yield return CoroutineRunner.instance.RunAndWait("Correct",
+        //        narrationManager.ShowNarration("정답입니다!", StringKeys.EN_ANSWER_0));
+        //    yield return CoroutineRunner.instance.RunAndWait("Correct",
+        //       narrationManager.ShowNarration(StringUtil.KoreanParticle($"{answer_kr}을/를 정확하게 찾았어요!"), StringKeys.EN_ANSWER_11));
+        //    yield return CoroutineRunner.instance.RunAndWait("Correct",
+        //      narrationManager.ShowNarration($"참 잘했어요!", StringKeys.EN_ANSWER_1));
+        //    Mission1_GameManager.instance.clear = true; //정답을 맞췄다.
+        //}
         narrationManager.HideDialog();
         yield return null;
     }
@@ -116,7 +125,6 @@ public class Mission1_UIManager : MonoBehaviour
            narrationManager.ShowNarration($"다시 한 번 잘 찾아볼까요 ?", StringKeys.EN_ANSWER_3));
         narrationManager.HideDialog();
         yield return null;
-
     }
     public IEnumerator _NextMission()
     {
