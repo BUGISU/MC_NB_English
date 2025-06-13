@@ -209,7 +209,7 @@ flowchart TD
 
 | 단어 찾기 지시                                   | 단어 떠다니기                         |
 | ------------------------------------------ | -------------------------------------------- |
-| ![미션1지시](./Screenshots/Screenshots/Screenshot_20250325_221049.jpg) | ![단어애니메이션](./Screenshots/Screenshots/Screenshot_20250325_221054.jpg) |
+| ![미션1지시](./Screenshots/Screenshot_20250325_221049.jpg) | ![단어애니메이션](./Screenshots/Screenshot_20250325_221054.jpg) |
 
 ---
 
