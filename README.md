@@ -1,5 +1,3 @@
----
-
 # 🌟 늘봄-영어 주문을 찾아서 (English Magic Adventure)
 
 **플랫폼:** Leia LUME PAD 2
@@ -193,4 +191,3 @@ flowchart TD
 * **단어/문장 오디오 클립 관리:** `StringKeys.cs`를 통해 미션별 오디오 클립 키 일괄 정의
 * **한국어 조사의 자연스러운 연결:** `StringUtil.KoreanParticle()`로 ‘을/를’, ‘이/가’ 자동 처리
 
----
