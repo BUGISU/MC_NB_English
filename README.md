@@ -1,223 +1,160 @@
-# 🌟 늘봄-영어 주문을 찾아서 (English Magic Adventure)
+# 🪄 영어 마법 모험 (English Magic Adventure)
 
-**플랫폼:** Leia LUME PAD 2
-**대상:** 초등학교 1학년
-**엔진:** Unity 2022.3+ (C# 기반)
-**콘텐츠 구성:** 인트로 + 2개의 미션 + 마무리 피드백
-**학습 목표:** 영어 단어 인식, 문장 구성 능력 향상
+> **기초 영어 단어와 문장 구성 학습**을 위한
+> 초등학교 1학년 대상 **3D 인터랙티브 영어 콘텐츠**
 
 ---
 
-## 📚 목차
+## 📌 개요
 
-1. [기획 개요](#기획-개요)
-2. [전체 아키텍처](#전체-아키텍처)
-3. [주요 기능 및 스크립트 설명](#주요-기능-및-스크립트-설명)
+\*\*“영어 마법 모험”\*\*은 Leia LUME PAD 2의 3D 입체 디스플레이를 활용하여
+아이들이 영어 단어를 즐겁고 자연스럽게 익히도록 돕는 **영어 단어/문장 학습 콘텐츠**입니다.
 
-   * [인트로 씬](#인트로-씬)
-   * [미션 1: 단어 찾기](#미션-1-단어-찾기)
-   * [미션 2: 문장 조합](#미션-2-문장-조합)
-   * [공통 시스템](#공통-시스템)
-4. [학습 흐름 시퀀스](#학습-흐름-시퀀스)
-5. [기기/기술 요건](#기기기술-요건)
+학생은 마법사 '에이미'와 함께
+① 단어 찾기 → ② 문장 만들기 → ③ 마무리 피드백의 구조로
+학습의 몰입과 반복 효과를 동시에 경험하게 됩니다.
 
 ---
 
-## 🎯 기획 개요
+## 🛠 개발 정보
 
-* **스토리:** 마법사 ‘에이미’와 함께 떠나는 영어 모험
-* **주요 학습 콘텐츠:**
-
-  * 영어 단어 인식 (apple, cat 등)
-  * 문장 구성 훈련 (예: I see an apple.)
-* **3D 몰입형 구성:** 입체 시각, 효과음, 피드백
-* **진행 단계:** 인트로 → 미션1(단어 찾기) → 미션2(문장 조합) → 마무리
-
-📄 참고: [콘텐츠 개요 및 목표](:contentReference[oaicite:0]{index=0}), [기능 요약](:contentReference[oaicite:1]{index=1})
+| 항목       | 내용                                         |
+| -------- | ------------------------------------------ |
+| 엔진       | Unity 2022.3 LTS                           |
+| 대상 디바이스  | Leia Lume Pad 2, Android 기반                |
+| 주요 기술    | DOTween, TextMeshPro, URP, 3D Stereoscopic |
+| 인터페이스 요소 | 3D 캐릭터, 드래그 앤 드롭, 나레이션 텍스트/오디오             |
 
 ---
 
-## 🏗 전체 아키텍처
+## 📚 학습 콘텐츠 구성 방식
 
-```mermaid
-flowchart TD
-    IntroScene -->|Start| Mission1Scene
-    Mission1Scene -->|Success| Mission2Scene
-    Mission2Scene -->|Clear| MainScene
+### 🎯 Mission01: 영어 단어 찾기
 
-    subgraph Manager 구성도
-      GameManager --> NarrationManager
-      NarrationManager --> SoundManager
-      GameManager --> CoroutineRunner
-    end
+* **방식**: 마법사가 지시하는 단어(예: “apple”)를 화면에서 터치
+* **목표**: 단어 인식, 영어 음성 피드백 체험
+* **정답 시**: 애니메이션 확대 + 칭찬 나레이션 + 보상 아이콘
 
-    subgraph Mission1 구성
-      M1_GameManager --> M1_UIManager
-      M1_GameManager --> M1_DataManager
-      M1_GameManager --> NarrationManager
-    end
+### 🧩 Mission02: 문장 만들기
 
-    subgraph Mission2 구성
-      M2_GameManager --> M2_UIManager
-      M2_GameManager --> M2_DataManager
-      M2_GameManager --> NarrationManager
-    end
+* **방식**: 단어 조각을 드래그하여 빈칸에 올바르게 조합
+* **목표**: 영어 문장 구조 이해 및 어휘 반복 학습
+* **정답 시**: 문장 완성 이펙트 + 캐릭터 칭찬 + 다음 문제 자동 진행
+
+---
+
+## 🖼️ 예시 이미지
+
+### Mission01 - 영어 단어 찾기
+
+| 메인 화면                               | 미션 1 -화면구성 및 타이틀                                | 오답 시 화면                              |
+| ----------------------------------- | -------------------------------------- | ------------------------------------ |
+| ![](/ScreenShots/Screenshot_20250325_215755.jpg) | ![](/ScreenShots/Screenshot_20250325_221054.jpg) | ![](/ScreenShots/Mission1_Wrong.jpg) |
+
+### Mission02 - 문장 조합하기
+
+| 문제 화면                               | 정답 시 효과                                |
+| ----------------------------------- | -------------------------------------- |
+| ![](/ScreenShots/Screenshot_20250325_221134.jpg) | ![](/ScreenShots/Screenshot_20250325_221154.jpg) |
+
+---
+
+## 📁 프로젝트 구조 개요
+
+해당 프로젝트는 다음과 같은 구성으로 되어 있습니다:
+
+1. **Introduction**: 마법사 인사, 영어 세계 입장
+2. **Mission 1**: 단어 찾기 (알파벳 떠다니는 공간 터치)
+3. **Mission 2**: 문장 만들기 (단어 조각 드래그하여 빈칸에 배치)
+4. **Ending**: 마무리 피드백 및 다음 학습 예고
+
+---
+
+## 📦 폴더 구조
+
+```plaintext
+/Assets
+├── Scenes/
+│   ├── Introduction.unity
+│   ├── Mission1.unity
+│   └── Mission2.unity
+├── Scripts/
+│   ├── Core/
+│   │   ├── GameManager.cs
+│   │   ├── SoundManager.cs
+│   │   ├── SettingManager.cs
+│   ├── Managers/
+│   │   ├── NarrationManager.cs
+│   │   ├── CoroutineRunner.cs
+│   ├── Missions/
+│   │   ├── Mission1/
+│   │   │   ├── Mission1_GameManager.cs
+│   │   │   ├── Mission1_DataManager.cs
+│   │   │   ├── Mission1_UIManager.cs
+│   │   ├── Mission2/
+│   │   │   ├── Mission2_GameManager.cs
+│   │   │   ├── Mission2_DataManager.cs
+│   │   │   ├── Mission2_UIManager.cs
+│   ├── UI/
+│   │   ├── Introduction_UIManager.cs
+│   ├── Utilities/
+│   │   ├── TouchObjectDetector.cs
+│   │   ├── TouchSelf.cs
+│   │   ├── ObjectBlink.cs
+│   │   ├── FloatkoreaAlphabet.cs
+│   │   ├── StringKeys.cs
 ```
 
 ---
 
-## 🧩 주요 기능 및 스크립트 설명
+## 🔁 실행 흐름 요약
 
-### 🔹 인트로 씬
+### 🎬 1. 인트로 씬 (`Introduction_UIManager`)
 
-**파일:** `Introduction_UIManager.cs`
-**기능:**
-
-* 버튼 클릭 시 캐릭터 ‘에이미’ 인사 → 카메라 이동 + Bloom → Mission1 로딩
-* 터치 유도 텍스트 점멸, 텍스트 웨이브 애니메이션 적용
-* `NarrationManager`와 함께 시작 음성 동기화 출력
-
-
+* “터치하여 시작” 버튼 → 캐릭터 인사 및 인트로 나레이션 출력
+* 카메라 이동 + 3D 이펙트 → `Mission1` 씬으로 자동 전환
 
 ---
 
-### 🔹 미션 1: 단어 찾기
+### ✋ 2. Mission01 - 영어 단어 찾기
 
-#### 구성
-
-* 여러 단어가 3D 공간에 `FloatkoreaAlphabet`로 부유
-* 사용자는 지정된 단어를 터치 (`TouchObjectDetector`)하여 정답 여부 판별
-
-#### 핵심 컴포넌트
-
-| 클래스                    | 역할                   |
-| ---------------------- | -------------------- |
-| `Mission1_GameManager` | 게임 흐름 제어, 정답 처리      |
-| `Mission1_DataManager` | 퀴즈 단어 선택/랜덤 인덱스 생성   |
-| `Mission1_UIManager`   | UI 제어 및 나레이션 출력      |
-| `TouchObjectDetector`  | 오브젝트 클릭 이벤트 및 정답 판정  |
-| `TouchSelf`            | 정답/오답 이벤트 처리         |
-| `NarrationManager`     | 텍스트 + 음성 나레이션 동기화 출력 |
-
-
+* `Mission1_DataManager` → 단어 리스트 생성 및 퀴즈 세팅
+* `TouchObjectDetector`로 알파벳 선택
+* `TouchSelf`로 정답/오답 이벤트 처리
+* 정답 시 `NPCController` 애니메이션 + 나레이션 연출
 
 ---
 
-### 🔹 미션 2: 문장 조합
+### ✍️ 3. Mission02 - 문장 조합하기
 
-#### 구성
-
-* 단어 조각을 드래그 앤 드롭하여 문장 완성
-* 단어는 `alphabet` 태그를 이용해 선택 가능
-* 빈칸은 `TextMeshProUGUI` + `SetActive(false)` 방식으로 처리
-
-#### 핵심 컴포넌트
-
-| 클래스                    | 역할                          |
-| ---------------------- | --------------------------- |
-| `Mission2_GameManager` | 전체 흐름 (시작 → 문제 5개 반복 → 클리어) |
-| `Mission2_DataManager` | 문제 세팅 및 정답 저장               |
-| `Mission2_UIManager`   | UI, 나레이션, 정답/오답 피드백         |
-| `TouchObjectDetector`  | 오브젝트 드래그 및 드롭 판정            |
-| `TouchSelf`            | 정답 판정 및 피드백 호출              |
-
-
+* 문장에서 빈칸 위치 선정 (`Mission2_DataManager`)
+* 단어 후보 섞기 및 선택지 구성
+* 올바른 순서로 단어를 드래그하여 문장 완성
+* 모든 문제 완료 시 → 마법사 캐릭터 등장 + 종료 메시지
 
 ---
 
-### 🔸 공통 시스템
+## 🔧 주요 클래스 설명
 
-* **`NarrationManager`**
-  텍스트 출력 + 음성 재생 동기화 시스템
-  `DOTween.DOText`로 애니메이션 구현
-  `ShowNarration(string, string)` 방식으로 클립명과 텍스트 연동
-
-* **`CoroutineRunner`**
-  코루틴을 키로 제어, 타임아웃 포함
-  `RunAndWait(key, coroutine)`으로 외부 대기 로직 구현
-
-* **`SoundManager`**
-  효과음, BGM, 나레이션 재생
-  `PlayNarration`, `PlaySFX`, `SaveVolumeSettings` 등 지원
-
-* **`SettingManager`**
-  볼륨 조절, 3D 모드 토글, 설정 팝업 등 기능 포함
+| 클래스 이름                   | 역할 / 기능 요약                         |
+| ------------------------ | ---------------------------------- |
+| ✅ `GameManager`          | 씬 전환, 터치 가능 여부 제어, 전체 흐름 제어        |
+| ✅ `NarrationManager`     | 텍스트 타이핑 + 나레이션 오디오 동기화 처리          |
+| ✅ `SoundManager`         | 배경음악, 효과음, 나레이션 음성 재생 관리           |
+| ✅ `CoroutineRunner`      | 코루틴 실행 제어 및 중복 방지, 타임아웃 지원         |
+| ✅ `TouchObjectDetector`  | 터치/드래그 오브젝트 감지 및 Mission별 입력 분기 처리 |
+| ✅ `Mission1_GameManager` | Mission1 전체 흐름 및 정답 판정 제어          |
+| ✅ `Mission2_GameManager` | Mission2 전체 퀴즈 루프 제어 및 정답 처리       |
+| ✅ `Mission1_DataManager` | 단어 리스트 랜덤 구성 및 정답 설정               |
+| ✅ `Mission2_DataManager` | 문장 조각 분해, 정답/선택지 분리, 문장 완성 로직 구성   |
+| ✅ `UIManager`들           | 각 미션의 연출, 효과, 나레이션 호출 시점 제어        |
 
 ---
 
-## 🧭 학습 흐름 시퀀스
+## 🧩 기타 유틸리티 요소
 
-1. **인트로**
-
-   * 마법사 등장 + 인사
-   * Bloom 이펙트 + 카메라 전환
-   * Mission1 로딩
-
-2. **미션 1: 단어 찾기**
-
-   * 반짝이는 단어들 → 정답 터치
-   * 정답 시 축하, 오답 시 격려 멘트
-   * 총 5문제 진행 후 자동 전환
-
-3. **미션 2: 문장 조합**
-
-   * 빈칸이 있는 문장에 단어 조각 드래그
-   * 단어 순서 맞추기
-   * 5문제 완료 후 클리어 애니메이션
-
-4. **마무리**
-
-   * 배운 단어 복습 나레이션
-   * 에이미 캐릭터의 작별 인사
-   * 메인 화면 자동 복귀
-
----
-
-## 💻 기기/기술 요건
-
-| 항목     | 내용                                  |
-| ------ | ----------------------------------- |
-| 플랫폼    | Leia LUME PAD 2 (3D 지원)             |
-| 운영체제   | Android 기반                          |
-| 개발환경   | Unity 2022.3 이상                     |
-| 필수 패키지 | DOTween, TextMeshPro, LeiaUnity SDK |
-| 입력방식   | 터치 및 드래그 제스처                        |
-| 3D 출력  | LeiaDisplay를 통한 Set3DMode 처리        |
-
----
-
-## 📌 부록
-
-* **단어/문장 오디오 클립 관리:** `StringKeys.cs`를 통해 미션별 오디오 클립 키 일괄 정의
-* **한국어 조사의 자연스러운 연결:** `StringUtil.KoreanParticle()`로 ‘을/를’, ‘이/가’ 자동 처리
-
----
-
-## 📸 콘텐츠 스크린샷
-
----
-
-### 🎬 인트로 화면
-
-| 타이틀 화면                                   |  인사 장면                                          | 연출 및 효과                                       |
-| ---------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| ![인트로](./Screenshots/Screenshot_20250325_215755.jpg) | ![에이미 등장](./Screenshots/Screenshot_20250325_221037.jpg) | ![에이미 인사](./Screenshots/Screenshot_20250325_221044.jpg) |
-
----
-
-### 🧩 미션 1: 단어 찾기 모험
-
-| 단어 찾기 지시                                   | 단어 떠다니기                         |
-| ------------------------------------------ | -------------------------------------------- |
-| ![미션1지시](./Screenshots/Screenshot_20250325_221049.jpg) | ![단어애니메이션](./Screenshots/Screenshot_20250325_221054.jpg) |
-
----
-
-### ✏️ 미션 2: 문장 조합하기
-
-| 문장 제시                                     | 조합 결과                                
-| ----------------------------------------- | ----------------------------------------- |
-| ![문장조합](./Screenshots/Screenshot_20250325_221134.jpg) | ![정답조합](./Screenshots/Screenshot_20250325_221154.jpg) |
-
----
+* `FloatkoreaAlphabet`: 알파벳이 부유하는 애니메이션 처리
+* `ObjectBlink`: 터치 유도 UI 깜빡임 효과
+* `NPCController`: 마법사 캐릭터 애니메이션 트리거 제어
+* `SettingManager`: 볼륨, 재시작, 3D 모드 설정 기능 제공
 
